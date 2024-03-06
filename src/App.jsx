@@ -1,5 +1,3 @@
-import { nanoid } from "nanoid";
-
 import "./App.css";
 import contactsData from "./contactsData.json";
 
@@ -10,13 +8,34 @@ import SearchBox from "./components/SearchBox/SearchBox";
 import ContactList from "./components/ContactList/ContactList";
 
 function App() {
-  const [contacts, setContacts] = useState(contactsData);
+  const [contacts, setContacts] = useState(contactsData); // состояние
+  const [filter, setFilter] = useState(""); // фильтр, по которому нужно отфильтровать коллекцию
+
+  // функция изменения состояния. Добавления контакта
+  const onAdd = (newContact) => {
+    const updatedContacts = [...contacts, newContact];
+    localStorage.setItem("contacts", JSON.stringify(updatedContacts)); // Сохраняем данные в localStorage
+    setContacts(updatedContacts); // Обновляем состояние после сохранения в localStorage
+    return updatedContacts;
+  };
+
+  // функция изменения состояния. Удаление контакта
+  const handleDelete = (contactId) => {
+    setContacts((prevContacts) => {
+      return prevContacts.filter((contact) => contact.id !== contactId);
+    });
+  };
+
+  // фильтрация коллекции
+  const visibleTasks = contacts.filter((contact) =>
+    contact.name.toLowerCase().includes(filter.toLowerCase())
+  );
 
   // Извлечение состояния из localStorage при загрузке компонента
   useEffect(() => {
-    const stringiContacts = localStorage.getItem("contacts");
-    if (stringiContacts) {
-      setContacts(JSON.parse(stringiContacts));
+    const stringifiedContacts = localStorage.getItem("contacts");
+    if (stringifiedContacts) {
+      setContacts(JSON.parse(stringifiedContacts));
     }
   }, []);
 
@@ -25,28 +44,13 @@ function App() {
     localStorage.setItem("contacts", JSON.stringify(contacts));
   }, [contacts]);
 
-  const handleDelete = (contactId) => {
-    setContacts((prevState) =>
-      prevState.filter((contact) => contact.id !== contactId)
-    );
-  };
-
-  // функция добавления контакта
-  const onAddNewContact = (contactData) => {
-    const finalContact = {
-      ...contactData,
-      id: nanoid(),
-    };
-    setContacts((prevState) => [...prevState, finalContact]);
-  };
-
   // Рендеринг компонентов ContactForm, SearchBox, ContactList
   return (
     <div>
       <h1>Phonebook</h1>
-      <ContactForm onAddNewContact={onAddNewContact} />
-      <SearchBox />
-      <ContactList contacts={contacts} onDeleteContact={handleDelete} />
+      <ContactForm onAdd={onAdd} />
+      <SearchBox value={filter} onFilter={setFilter} />
+      <ContactList contacts={visibleTasks} onDelete={handleDelete} />
     </div>
   );
 }

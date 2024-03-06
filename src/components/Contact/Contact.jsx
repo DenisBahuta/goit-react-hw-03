@@ -1,6 +1,6 @@
 import { MdPerson, MdPhone } from "react-icons/md";
 
-const Contact = ({ id, name, phone, onDeleteContact }) => {
+const Contact = ({ id, name, number, onDelete }) => {
   return (
     <div>
       <p>
@@ -8,9 +8,9 @@ const Contact = ({ id, name, phone, onDeleteContact }) => {
         {name}
       </p>
       <p>
-        <MdPhone /> {phone}
+        <MdPhone /> {number}
       </p>
-      <button type='button' onClick={onDeleteContact(id)}>
+      <button type='button' onClick={() => onDelete(id)}>
         Delete
       </button>
     </div>

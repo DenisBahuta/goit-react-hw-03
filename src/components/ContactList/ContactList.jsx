@@ -1,17 +1,15 @@
 // компонент ContactList рисует список контактов
 import Contact from "../Contact/Contact";
 
-const ContactList = ({ contacts, onDeleteContact }) => {
+const ContactList = ({ contacts, onDelete }) => {
   return (
-    <div>
-      <ul>
-        {contacts.map((contact) => (
-          <li key={contact.id}>
-            <Contact {...contact} onDeleteContact={onDeleteContact} />
-          </li>
-        ))}
-      </ul>
-    </div>
+    <ul>
+      {contacts.map((contact) => (
+        <li key={contact.id}>
+          <Contact {...contact} onDelete={onDelete} />
+        </li>
+      ))}
+    </ul>
   );
 };
 

@@ -30,10 +30,10 @@ a:hover {
   min-height: 100vh;
 } */
 
-h1 {
+/* h1 {
   font-size: 3.2em;
   line-height: 1.1;
-}
+} */
 
 /* button {
   border-radius: 8px;
@@ -53,3 +53,40 @@ button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 } */
+@import "node_modules/modern-normalize/modern-normalize.css";
+
+body {
+  font-family: "DM Sans", sans-serif;
+  background-color: #f6f2f2;
+  color: #1b1b1b;
+}
+
+button {
+  cursor: pointer;
+}
+
+ul {
+  list-style-type: none;
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-left: 0;
+}
+
+a {
+  text-decoration: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+p {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
