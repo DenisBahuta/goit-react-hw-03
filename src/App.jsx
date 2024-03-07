@@ -9,14 +9,13 @@ import ContactList from "./components/ContactList/ContactList";
 
 function App() {
   const [contacts, setContacts] = useState(contactsData); // состояние
-  const [filter, setFilter] = useState(""); // фильтр, по которому нужно отфильтровать коллекцию
+  const [filter, setFilter] = useState(""); //фильтр, по которому нужно отфильтровать коллекцию
 
   // функция изменения состояния. Добавления контакта
   const onAdd = (newContact) => {
-    const updatedContacts = [...contacts, newContact];
-    localStorage.setItem("contacts", JSON.stringify(updatedContacts)); // Сохраняем данные в localStorage
-    setContacts(updatedContacts); // Обновляем состояние после сохранения в localStorage
-    return updatedContacts;
+    setContacts((prevContacts) => {
+      return [...prevContacts, newContact];
+    });
   };
 
   // функция изменения состояния. Удаление контакта
@@ -25,7 +24,6 @@ function App() {
       return prevContacts.filter((contact) => contact.id !== contactId);
     });
   };
-
   // фильтрация коллекции
   const visibleTasks = contacts.filter((contact) =>
     contact.name.toLowerCase().includes(filter.toLowerCase())
@@ -33,15 +31,15 @@ function App() {
 
   // Извлечение состояния из localStorage при загрузке компонента
   useEffect(() => {
-    const stringifiedContacts = localStorage.getItem("contacts");
-    if (stringifiedContacts) {
-      setContacts(JSON.parse(stringifiedContacts));
+    const stringiContacts = window.localStorage.getItem("contacts");
+    if (stringiContacts) {
+      setContacts(JSON.parse(stringiContacts));
     }
   }, []);
 
   // Сохранение состояния в localStorage при изменении
   useEffect(() => {
-    localStorage.setItem("contacts", JSON.stringify(contacts));
+    window.localStorage.setItem("contacts", JSON.stringify(contacts));
   }, [contacts]);
 
   // Рендеринг компонентов ContactForm, SearchBox, ContactList

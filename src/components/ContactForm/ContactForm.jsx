@@ -1,7 +1,5 @@
-// import { Formik } from "formik";
+// import { Formik, Field, Form, ErrorMessage } from "formik";
 // import * as Yup from "yup";
-// import { ErrorMessage } from "formik";
-
 import { nanoid } from "nanoid";
 
 const ContactForm = ({ onAdd }) => {
@@ -19,11 +17,11 @@ const ContactForm = ({ onAdd }) => {
     <form onSubmit={handleSubmit}>
       <label>
         <span>Name</span>
-        <input placeholder='Add name' type='text' name='name' required />
+        <input placeholder='Adam Smith' type='text' name='name' required />
       </label>
       <label>
         <span>Number</span>
-        <input placeholder='Add phone' type='text' name='number' required />
+        <input placeholder='111-22-33' type='text' name='number' required />
       </label>
       <button type='submit' title='Click to save new contact'>
         Add contact
