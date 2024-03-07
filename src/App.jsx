@@ -8,7 +8,15 @@ import SearchBox from "./components/SearchBox/SearchBox";
 import ContactList from "./components/ContactList/ContactList";
 
 function App() {
-  const [contacts, setContacts] = useState(contactsData); // состояние
+  const [contacts, setContacts] = useState(() => {
+    // Извлечение состояния из localStorage при загрузке компонента
+    const stringiContacts = window.localStorage.getItem("contacts");
+    if (stringiContacts !== null) {
+      return JSON.parse(stringiContacts);
+    }
+    return contactsData;
+  });
+
   const [filter, setFilter] = useState(""); //фильтр, по которому нужно отфильтровать коллекцию
 
   // функция изменения состояния. Добавления контакта
@@ -28,14 +36,6 @@ function App() {
   const visibleTasks = contacts.filter((contact) =>
     contact.name.toLowerCase().includes(filter.toLowerCase())
   );
-
-  // Извлечение состояния из localStorage при загрузке компонента
-  useEffect(() => {
-    const stringiContacts = window.localStorage.getItem("contacts");
-    if (stringiContacts) {
-      setContacts(JSON.parse(stringiContacts));
-    }
-  }, []);
 
   // Сохранение состояния в localStorage при изменении
   useEffect(() => {

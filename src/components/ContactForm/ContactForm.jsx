@@ -1,32 +1,54 @@
-// import { Formik, Field, Form, ErrorMessage } from "formik";
-// import * as Yup from "yup";
+import { Formik, Field, Form, ErrorMessage } from "formik";
+import * as Yup from "yup";
 import { nanoid } from "nanoid";
 
-const ContactForm = ({ onAdd }) => {
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const name = e.target.elements.name.value;
-    const number = e.target.elements.number.value;
-    onAdd({ id: nanoid(), name, number });
+const ContactSchema = Yup.object().shape({
+  name: Yup.string()
+    .min(3, "Too Short!")
+    .max(50, "Too Long!")
+    .required("Required"),
+  number: Yup.string()
+    .min(3, "Too Short!")
+    .max(50, "Too Long!")
+    .required("Required"),
+});
 
-    // очистка формы
-    e.target.reset();
+const INITIAL_FORM_VALUES = {
+  name: "",
+  number: "",
+};
+
+const ContactForm = ({ onAdd }) => {
+  const nameId = nanoid();
+  const numberId = nanoid();
+
+  const handleSubmit = (values, actions) => {
+    onAdd(values);
+    actions.resetForm();
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label>
-        <span>Name</span>
-        <input placeholder='Adam Smith' type='text' name='name' required />
-      </label>
-      <label>
-        <span>Number</span>
-        <input placeholder='111-22-33' type='text' name='number' required />
-      </label>
-      <button type='submit' title='Click to save new contact'>
-        Add contact
-      </button>
-    </form>
+    <Formik
+      initialValues={INITIAL_FORM_VALUES}
+      onSubmit={handleSubmit}
+      validationSchema={ContactSchema}
+    >
+      <Form>
+        <label htmlFor={nameId}>
+          <span>Name</span>
+          <Field placeholder='Adam Smith' type='text' name='name' />
+          <ErrorMessage name='name' component='span' />
+        </label>
+        <label htmlFor={numberId}>
+          <span>Number</span>
+          <Field placeholder='111-22-33' type='text' name='number' />
+          <ErrorMessage name='number' component='span' />
+        </label>
+        <button type='submit' title='Click to save new contact'>
+          Add contact
+        </button>
+      </Form>
+    </Formik>
   );
 };
 
