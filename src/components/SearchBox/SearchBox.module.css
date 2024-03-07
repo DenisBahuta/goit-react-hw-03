@@ -1,3 +1,17 @@
-.label {
-  margin: 0;
+.search {
+  width: 390px;
+  display: flex;
+  flex-direction: column;
+  padding: 20px 0;
+  position: relative;
+}
+.text {
+  margin-bottom: 5px;
+  font-weight: 500;
+}
+.input {
+  padding: 8px;
+  border: 2px solid gray;
+  border-radius: 5px;
+  background-color: rgb(245, 238, 227);
 }

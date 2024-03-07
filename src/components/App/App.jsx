@@ -1,11 +1,11 @@
-import "./App.css";
-import contactsData from "./contactsData.json";
+import css from "./App.module.css";
+import contactsData from "../../contactsData.json";
 
 import { useState, useEffect } from "react";
 
-import ContactForm from "./components/ContactForm/ContactForm";
-import SearchBox from "./components/SearchBox/SearchBox";
-import ContactList from "./components/ContactList/ContactList";
+import ContactForm from "../ContactForm/ContactForm";
+import SearchBox from "../SearchBox/SearchBox";
+import ContactList from "../ContactList/ContactList";
 
 function App() {
   const [contacts, setContacts] = useState(() => {
@@ -44,8 +44,8 @@ function App() {
 
   // Рендеринг компонентов ContactForm, SearchBox, ContactList
   return (
-    <div>
-      <h1>Phonebook</h1>
+    <div className={css.container}>
+      <h1 className={css.title}>Phonebook</h1>
       <ContactForm onAdd={onAdd} />
       <SearchBox value={filter} onFilter={setFilter} />
       <ContactList contacts={visibleTasks} onDelete={handleDelete} />

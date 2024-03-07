@@ -1,0 +1,28 @@
+.container {
+  border: 2px solid black;
+  border-radius: 10px;
+  display: flex;
+  width: 350px;
+  padding: 20px;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgb(228, 228, 240);
+}
+
+.contact {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.text {
+  font-style: 40px;
+  font-weight: 500;
+}
+.span {
+  margin-right: 10px;
+}
+.button {
+  width: 120px;
+  height: 50px;
+}

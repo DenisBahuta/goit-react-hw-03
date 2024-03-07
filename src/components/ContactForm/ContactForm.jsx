@@ -1,6 +1,8 @@
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { nanoid } from "nanoid";
+import css from "./ContactForm.module.css";
+import PropTypes from "prop-types";
 
 const ContactSchema = Yup.object().shape({
   name: Yup.string()
@@ -33,23 +35,43 @@ const ContactForm = ({ onAdd }) => {
       onSubmit={handleSubmit}
       validationSchema={ContactSchema}
     >
-      <Form>
-        <label htmlFor={nameId}>
-          <span>Name</span>
-          <Field placeholder='Adam Smith' type='text' name='name' />
+      <Form className={css.form}>
+        <label className={css.label} htmlFor={nameId}>
+          Name
+        </label>
+        <Field
+          className={css.field}
+          placeholder='Adam Smith'
+          type='text'
+          name='name'
+        />
+        <span className={css.errorMessage}>
           <ErrorMessage name='name' component='span' />
+        </span>
+        <label className={css.label} htmlFor={numberId}>
+          Number
         </label>
-        <label htmlFor={numberId}>
-          <span>Number</span>
-          <Field placeholder='111-22-33' type='text' name='number' />
+        <Field
+          className={css.field}
+          placeholder='111-22-33'
+          type='text'
+          name='number'
+        />
+        <span className={css.errorMessage}>
           <ErrorMessage name='number' component='span' />
-        </label>
-        <button type='submit' title='Click to save new contact'>
+        </span>
+        <button className={css.button} type='submit'>
           Add contact
         </button>
       </Form>
     </Formik>
   );
+};
+
+// Описание типов пропсов компонента ContactForm
+
+ContactForm.propTypes = {
+  onAdd: PropTypes.func.isRequired,
 };
 
 export default ContactForm;

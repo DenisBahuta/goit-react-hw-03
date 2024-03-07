@@ -1,0 +1,10 @@
+.container {
+  width: 100%;
+  padding: 10px 20px;
+  margin: 0 auto;
+}
+.title {
+  line-height: 1;
+  letter-spacing: -0.04em;
+  margin-bottom: 20px;
+}
